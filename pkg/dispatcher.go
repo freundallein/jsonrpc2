@@ -8,16 +8,19 @@ import (
 	"reflect"
 )
 
+// NewDispatcher is a constructor for a new Dispatcher instance
 func NewDispatcher() Dispatcher {
 	return &JSONRPCv2Dispatcher{
 		handlers: map[string]interface{}{},
 	}
 }
 
+// JSONRPCv2Dispatcher implementation of JSON-RPC v2.0 server
 type JSONRPCv2Dispatcher struct {
 	handlers map[string]interface{}
 }
 
+// RegisterHandler allows adding a new handler for some action
 func (d *JSONRPCv2Dispatcher) RegisterHandler(name string, handler interface{}) error {
 	if _, ok := d.handlers[name]; ok {
 		return errors.New(fmt.Sprintf("handler with name %s is already registered", name))
@@ -70,6 +73,7 @@ func (d *JSONRPCv2Dispatcher) validateHandler(name string, handler interface{}) 
 	return nil
 }
 
+// DispatchMessage serves raw JSON-RPC message, executes required action and returns result
 func (d *JSONRPCv2Dispatcher) DispatchMessage(ctx context.Context, rawMessage []byte) []byte {
 	requests, err := d.parseMessage(rawMessage)
 	if err != nil {
