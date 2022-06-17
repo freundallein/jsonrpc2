@@ -2,6 +2,8 @@
 
 Library provides interface for implementing your own JSON-RPC 2.0 server
 
+[JSON-RPC v2.0 Specfication](https://www.jsonrpc.org/specification)
+
 ## Usage example
 ```go
 package main
